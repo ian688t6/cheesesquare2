@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.view.MenuItem
 import gc.com.myapplication.R.drawable.ic_menu
@@ -31,6 +34,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupViewPager(viewPager: ViewPager) {
+        val adapter = Adapter(supportFragmentManager)
+        /* Todo add Fragment List */
+    }
 
+    inner class Adapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
+        private val m_fragments = ArrayList<Fragment>()
+        private val m_fragmentTitles = ArrayList<String>()
+
+        fun addFragment(fragment: Fragment, title: String) {
+            m_fragments.add(fragment)
+            m_fragmentTitles.add(title)
+        }
+
+        override fun getItem(position: Int): Fragment {
+            return m_fragments[position]
+        }
+
+        override fun getCount(): Int {
+            return m_fragments.size
+        }
+
+        override fun getPageTitle(position: Int): CharSequence {
+            return m_fragmentTitles[position]
+        }
     }
 }
